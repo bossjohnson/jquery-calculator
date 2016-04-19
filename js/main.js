@@ -16,7 +16,13 @@ $(document).ready(function() {
 
     // Operator Buttons
     $('.operator:not(#cancel)').click(function() {
-        args.push(arg);
+        if ($(this).attr('id') !== 'calc') {
+            repeat = false;
+        }
+        if (!repeat) {
+            console.log("pushing to args");
+            args.push(arg);
+        }
         arg = '';
         switch ($(this).text()) {
             case divisionSymbol:
@@ -32,7 +38,6 @@ $(document).ready(function() {
                 ops.push(add);
                 break;
             default:
-
         }
     });
 
@@ -66,6 +71,7 @@ function resetData() {
 
 function printResult() {
     if (repeat) {
+        console.log("repeating...");
         result = ops[ops.length - 1](result, Number(args[args.length - 1]));
     } else {
         result += Number(args[0]);
